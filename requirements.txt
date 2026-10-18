@@ -1,0 +1,6 @@
+# Runtime dependencies for the Hugging Face Space (Gradio SDK installs gradio itself)
+tensorflow-cpu==2.21.0
+keras==3.15.1
+numpy==2.5.3
+fastapi
+uvicorn
