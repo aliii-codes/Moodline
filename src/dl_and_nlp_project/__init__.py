@@ -88,19 +88,12 @@ app.add_middleware(
 app.mount('/static', StaticFiles(directory=static_dir), name="static")
 
 
-import os
-
-PORT = int(os.environ.get("PORT", 8000))
+PORT = int(os.environ.get("PORT", 7860))
 
 
 @app.get('/', include_in_schema=False)
 def server_ui():
-    return FileResponse('static/index.html')
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
+    return FileResponse(os.path.join(static_dir, 'index.html'))
 
 
 @app.get('/health', response_model=HealthResponse)
@@ -138,3 +131,7 @@ def predict_emotion(text_input: TextInput):
         confidence=float(probabilites[top_emotion_index]),
         all_probabilites=all_probabilites
     )
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
